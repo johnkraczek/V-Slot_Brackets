@@ -4,8 +4,8 @@ use <fillet.scad>
 //--******************--//
 
 //if you want to add a tab to hold the glass - i used a hex shaped piece of glass. 
-gls_tab_only = true; // if you don't want the xbox mount set to true
-gls_tab_retract = true; // if you want the AutoProbe Retract bolt holder set to true
+gls_tab_only = false; // if you don't want the xbox mount set to true
+gls_tab_retract = false; // if you want the AutoProbe Retract bolt holder set to true
 
 //--****************-- //
 
@@ -15,17 +15,17 @@ vert = 50; // height of your kossel printed corner. default 50;
 
 xbx_l = 77;
 xbx_w = 55; 
-bracket_h = 14;
-bracket_w = 5.25;
+bracket_h = 18;
+bracket_w = 6;
 
-zip_h = 4;
+zip_h = 4.5;
 zip_w = 2;
 
 vslot_beam_w = 20;
 vslot_beam_half = vslot_beam_w/2;
 
 nozzle = .4; // for making thin walls that play nice with your printer. 
-thin_wall = nozzle*2;
+thin_wall = nozzle*1;
 
 v_slot_pos = xbx_w-vert+zip_w*2+vslot_beam_half;
 
@@ -53,14 +53,14 @@ m3_rad = m3_major/2;
 //example height of printer bed. the vertex bracket is 50mm tall. the xbox PSU is 55mm tall the glass bed will need to be raised to accomidate this extra height. 
 
 //vslot beam
-%translate([xbx_w-vert+zip_w*2,bracket_w,-1])cube([vslot_beam_w,vslot_beam_w,bracket_h+2]);
+//%translate([xbx_w-vert+zip_w*2,bracket_w,-1])cube([vslot_beam_w,vslot_beam_w,bracket_h+2]);
  
  
 //vslot beam
-%translate([xbx_w-vert+zip_w*2+30,bracket_w,-1])cube([vslot_beam_w,vslot_beam_w,bracket_h+2]);
+//%translate([xbx_w-vert+zip_w*2+30,bracket_w,-1])cube([vslot_beam_w,vslot_beam_w,bracket_h+2]);
 
 // xbox example location (slice that is thickness of bracket)
-%translate([2,-xbx_l,-1])cube([xbx_w,xbx_l,bracket_h+2]);
+//%translate([2,-xbx_l,-1])cube([xbx_w,xbx_l,bracket_h+2]);
 
 
 difference(){
@@ -79,32 +79,32 @@ union(){
 translate([0,bracket_w,0])cube([bracket_w,vslot_beam_w,bracket_h]);
 translate([-gls_thk-bracket_w,bracket_w+vslot_beam_w,0])cube([v_slot_pos+10+gls_thk+bracket_w,bracket_w,bracket_h]);
 translate([v_slot_pos,bracket_w+vslot_beam_w,0])rotate([0,0,180])v_slot(bracket_h,0,0);
+translate([v_slot_pos,bracket_w,1+zip_h])v_slot(bracket_h-2*zip_h-2,0,0);
 }
 
 if(!gls_tab_only){
 //zip tie paths
 //upper Ziptie hole. 
-translate([nozzle*2,-ep,(bracket_h-zip_h)-1])
-cube([zip_w+ep,bracket_w+2*ep,zip_h]);
+translate([nozzle*2-zip_w,-ep,(bracket_h-zip_h)-1])cube([zip_w*2,bracket_w-1,zip_h]);
 
 //lower ziptie hole. 
-translate([xbx_w+zip_w-nozzle*2,-ep,(bracket_h-zip_h)-1])
-cube([zip_w+ep,bracket_w+2*ep,zip_h]);
+translate([xbx_w+zip_w-nozzle*2,-ep,(bracket_h-zip_h)-1])cube([zip_w+ep,bracket_w+2*ep,zip_h]);
 
 //zip path
-translate([zip_w,bracket_w-thin_wall-1,(bracket_h-zip_h)-1])cube([xbx_w,zip_w-1,zip_h]);
+translate([zip_w-bracket_w,bracket_w-zip_w,(bracket_h-zip_h)-1])cube([xbx_w+bracket_w,zip_w-thin_wall,zip_h]);
+//#translate([0,bracket_w-zip_w-thin_wall,(bracket_h-zip_h)-1])cube([bracket_w,zip_w,zip_h]);
 
-	translate([0,0,-bracket_h+6]){
+	translate([0,0,1]){
 	//upper Ziptie hole. 
-	translate([nozzle*2,-ep,(bracket_h-zip_h)-1])
-	cube([zip_w+ep,bracket_w+2*ep,zip_h]);
+	translate([nozzle*2-zip_w,-ep,0])	cube([zip_w*2,bracket_w-1,zip_h]);
+	//rotate([0,0,-50])translate([-zip_w/3,4,0])cube([1,5,zip_h]);
 
 	//lower ziptie hole. 
-	translate([xbx_w+zip_w-nozzle*2,-ep,(bracket_h-zip_h)-1])
-	cube([zip_w+ep,bracket_w+2*ep,zip_h]);
+	translate([xbx_w+zip_w-nozzle*2,-ep,0])	cube([zip_w+ep,bracket_w+2*ep,zip_h]);
 
 	//zip path
-	translate([zip_w,bracket_w-thin_wall-1,(bracket_h-zip_h)-1])cube([xbx_w,zip_w-1,zip_h]);
+	translate([zip_w-bracket_w,bracket_w-zip_w,0])cube([xbx_w+bracket_w,zip_w-thin_wall,zip_h]);
+	translate([0,bracket_w-zip_w-thin_wall,0])cube([bracket_w,zip_w,zip_h]);
 	}
 }
 
