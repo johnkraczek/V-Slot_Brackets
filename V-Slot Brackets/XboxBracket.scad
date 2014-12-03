@@ -4,7 +4,7 @@ use <fillet.scad>
 //--******************--//
 
 //if you want to add a tab to hold the glass - i used a hex shaped piece of glass. 
-gls_tab_only = false; // if you don't want the xbox mount set to true
+gls_tab_only = true; // if you don't want the xbox mount set to true
 gls_tab_retract = false; // if you want the AutoProbe Retract bolt holder set to true
 
 //--****************-- //
@@ -68,7 +68,7 @@ union(){
 	if(!gls_tab_only){
 	cube([ xbx_w + zip_w*2, bracket_w, bracket_h]);
 	}else{
-		cube([ vslot_beam_w, bracket_w, bracket_h]);
+		cube([ vslot_beam_w+bracket_w, bracket_w, bracket_h]);
 	}
 	if(!gls_tab_retract){
 	translate([-gls_thk-bracket_w,bracket_w+(vslot_beam_w - tab_w),0])cube([bracket_w,tab_w,bracket_h]);
@@ -132,8 +132,8 @@ translate([-bracket_w-gls_thk+2,bracket_w+bracket_h/2,bracket_h/2])rotate([0,-90
 
 
 if(gls_tab_only){
-translate([vslot_beam_w,0,0])rotate([0,0,90])fil_linear_i(bracket_h,bracket_w);
-translate([vslot_beam_w,bracket_w,0])rotate([0,0,180])fil_linear_i(bracket_h,bracket_w-3);
+#translate([vslot_beam_w+bracket_w,0,0])rotate([0,0,90])fil_linear_i(bracket_h,bracket_w);
+translate([vslot_beam_w+bracket_w,bracket_w,0])rotate([0,0,180])fil_linear_i(bracket_h,bracket_w-3.2);
 }
 
 //corners
