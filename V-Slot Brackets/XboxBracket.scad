@@ -132,12 +132,17 @@ translate([-bracket_w-gls_thk+2,bracket_w+bracket_h/2,bracket_h/2])rotate([0,-90
 
 
 if(gls_tab_only){
-#translate([vslot_beam_w+bracket_w,0,0])rotate([0,0,90])fil_linear_i(bracket_h,bracket_w);
+translate([vslot_beam_w+bracket_w,0,0])rotate([0,0,90])fil_linear_i(bracket_h,bracket_w);
 translate([vslot_beam_w+bracket_w,bracket_w,0])rotate([0,0,180])fil_linear_i(bracket_h,bracket_w-3.2);
 }
 
 //corners
 translate([bracket_w,bracket_w,-ep]) cylinder(r=.5,h=bracket_h+2*ep);
 translate([bracket_w,bracket_w+vslot_beam_w,-ep]) cylinder(r=.5,h=bracket_h+2*ep);
+
+// making the bracket clips not so thick so they can slide over the vslot beam
+translate([v_slot_pos,bracket_w+.6,1+zip_h-ep])v_slot(bracket_h-2*zip_h-2+2*ep,0,0);
+translate([v_slot_pos,bracket_w+vslot_beam_w-.8,-ep])rotate([0,0,180])v_slot(bracket_h+2*ep,0,0);
+
 }
 
