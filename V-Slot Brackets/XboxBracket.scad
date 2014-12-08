@@ -43,10 +43,8 @@ m5_rad = m5_major/2+er;
 gls_thk = 5.65; // this is the thickness of your glass.  
 extra_w = 5;
 
-tab_l = 2.25; // factor of how long to make the tab finger that goes down the back. 
-
-
 tab_w = vslot_beam_w/2; // length that the tab extends across glass. 
+tab_retract_extra = 10+.5*bracket_w;
 
 tab_retract_offset = gls_tab_retract ? 30 : 0;
 
@@ -78,8 +76,8 @@ union(){
 	if(!gls_tab_retract){
 	translate([-gls_thk-bracket_w,bracket_w+(vslot_beam_w - tab_w),0])cube([bracket_w,tab_w,bracket_h]);
 	} else {
-	translate([-gls_thk-bracket_w,bracket_w,0])cube([bracket_w,vslot_beam_w,bracket_h]);
-	translate([-bracket_w-gls_thk,bracket_w+bracket_h/2,bracket_h/2])rotate([0,-90,0])cylinder(r1=bracket_h/2, r2 = bracket_h/4,h=3);
+	translate([-gls_thk-bracket_w,bracket_w-tab_retract_extra,0])cube([bracket_w,vslot_beam_w+tab_retract_extra,bracket_h]);
+	translate([-bracket_w-gls_thk,bracket_w+bracket_h/2-tab_retract_extra,bracket_h/2])rotate([0,-90,0])cylinder(r1=bracket_h/2, r2 = bracket_h/4,h=3);
 	}
 translate([0,bracket_w,0])cube([bracket_w,vslot_beam_w,bracket_h]);
 translate([-gls_thk-bracket_w,bracket_w+vslot_beam_w,0])cube([v_slot_pos+10+gls_thk+bracket_w,bracket_w,bracket_h]);
@@ -133,11 +131,11 @@ translate([-gls_thk-bracket_w,vslot_beam_w+2*bracket_w,0])scale([.25,1,1])rotate
 
 } else {
 //Glass Tab Retract for auto Retract. 
-translate([-gls_thk,bracket_w,0])scale([1,3,1])rotate([0,0,90])fil_linear_i(bracket_h,bracket_w-1);
+translate([-gls_thk,bracket_w-tab_retract_extra,0])scale([1,3,1])rotate([0,0,90])fil_linear_i(bracket_h,bracket_w-1);
 translate([-gls_thk-bracket_w,vslot_beam_w+2*bracket_w,0])rotate([0,0,270])fil_linear_i(bracket_h,bracket_w+2);
-translate([-gls_thk,bracket_w,0])rotate([0,-90,0])fil_linear_i(bracket_w,bracket_h/2);
-translate([-bracket_w-gls_thk,bracket_w,bracket_h])rotate([0,90,0])fil_linear_i(bracket_w,bracket_h/2);
-translate([-bracket_w-gls_thk+2,bracket_w+bracket_h/2,bracket_h/2])rotate([0,-90,0])cylinder(h=bracket_w,r=m3_rad);
+translate([-gls_thk,bracket_w-tab_retract_extra,0])rotate([0,-90,0])fil_linear_i(bracket_w,bracket_h/2);
+translate([-bracket_w-gls_thk,bracket_w-tab_retract_extra,bracket_h])rotate([0,90,0])fil_linear_i(bracket_w,bracket_h/2);
+translate([-bracket_w-gls_thk+2,bracket_w+bracket_h/2-tab_retract_extra,bracket_h/2])rotate([0,-90,0])cylinder(h=bracket_w,r=m3_rad);
 }
 
 if(gls_tab_only){
