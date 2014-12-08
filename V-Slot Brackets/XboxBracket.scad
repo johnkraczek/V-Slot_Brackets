@@ -44,7 +44,7 @@ gls_thk = 5.65; // this is the thickness of your glass.
 extra_w = 5;
 
 tab_w = vslot_beam_w/2; // length that the tab extends across glass. 
-tab_retract_extra = 10+.5*bracket_w;
+tab_retract_extra = 10;
 
 tab_retract_offset = gls_tab_retract ? 30 : 0;
 
